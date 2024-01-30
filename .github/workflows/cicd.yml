@@ -28,10 +28,10 @@ jobs:
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/react_js_app_aswani:${{ github.sha }} .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/react_js_app_aswani:${{ github.sha }}
 
-     - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
+       - name: Fill in the new image ID in the Amazon ECS task definition
+         id: task-def
+         uses: aws-actions/amazon-ecs-render-task-definition@v1
+         with:
           task-definition: aswani-react-js-app.json
           container-name: react-js
           image: ${{ steps.build-image.outputs.image }}
@@ -42,4 +42,4 @@ jobs:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: aswani-react-js-app
           cluster: Aswani-React-JS-APP
-          wait-for-service-stability: true 
+          wait-for-service-stability: true
